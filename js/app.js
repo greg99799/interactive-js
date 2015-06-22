@@ -50,19 +50,32 @@ var addTask = function(taskString) {
   //Append listItem to incompleteTasksHolder
   incompleteTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
+
+  taskInput.value = ""; 
 }
 //Edit existing task
 var editTask = function() {
   console.log("edit task");
-  //When edit button is pressed
-    //if class of parent(li) is .edit
+  
+  var listItem = this.parentNode;
+
+  var editInput = listItem.querySelector("input[type=text");
+  var label = listItem.querySelector("label");
+
+  var containsClassList = listItem.classList.contains("editMode");
+    //if class of parent(li) is .editMode
+    if (containsClassList) {
       //switch from .editMode
       //label text become the input's value
-    //else
+      label.innerText = editInput.value;
+    } else {
       //switch to .editMode  
       //input value becomes label's text
-
-    //toggle .editMode on parent
+      editInput.value = label.innerText;
+    }
+    
+  //toggle .editMode on listItem
+  listItem.classList.toggle("editMode");
 }
 
 //Delete existing task
@@ -107,10 +120,14 @@ var bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 }
 
-
+var ajaxRequest = function() {
+  console.log("AJAX request")
+}
 
 //Set the click handler to the addTask function
-addButton.onclick = addTask;
+addButton.addEventListener("click", addTask);
+addButton.addEventListener("click", ajaxRequest);
+
 
 //cycle over incompleteTasksHolder ul list items
 for (var i = 0; i < incompleteTasksHolder.children.length; i++) {
