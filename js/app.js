@@ -48,6 +48,7 @@ var addTask = function(taskString) {
   
   var listItem = createNewTaskElement(taskInput.value);
   console.log(taskInput.value);
+  //Task input cannot be empty
   if (taskInput.value == "") {
     alert("PLease enter task!");
   } else {
